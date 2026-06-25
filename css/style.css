@@ -1,1 +1,173 @@
+/* ==========================================================================
+   AMIT KE CIRCUITS - GLOBAL STYLE SHEET
+   ========================================================================== */
 
+:root {
+    /* Color Palette */
+    --bg-dark: #0d0d0d;
+    --bg-card: #1a1a1a;
+    --bg-card-alt: #262626;
+    --primary-gold: #ffcc00;
+    --primary-yellow: #fff340;
+    --text-light: #ffffff;
+    --text-muted: #aaaaaa;
+    --accent-red: #ff3333;
+    --accent-green: #00cc66;
+    
+    /* Typography */
+    --font-primary: 'Impact', 'Arial Black', sans-serif;
+    --font-secondary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Global Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-secondary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-gold);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Utilities */
+.container {
+    width: 100%;
+    max-width: 480px; /* Mobile-first layout target */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.text-center { text-align: center; }
+.hidden { display: none !important; }
+
+/* Global Button Layout */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-gold), var(--primary-yellow));
+    color: #000;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-gold);
+    border: 2px solid var(--primary-gold);
+}
+
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    font-family: var(--font-secondary);
+    font-weight: bold;
+}
+
+.btn-call {
+    background-color: #0076ff;
+    color: white;
+    font-family: var(--font-secondary);
+    font-weight: bold;
+}
+
+.btn-dan {
+    background: linear-gradient(135deg, #333, #111);
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    font-family: var(--font-secondary);
+    font-weight: bold;
+}
+
+/* Global Navigation Top bar */
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: rgba(13, 13, 13, 0.95);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--primary-gold);
+}
+
+.logo-text {
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    color: var(--primary-gold);
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+}
+
+.logo-text span {
+    color: var(--text-light);
+}
+
+/* Base Bottom Sticky Controls Layout */
+.sticky-bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(26, 26, 26, 0.95);
+    border-top: 2px solid var(--primary-gold);
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    z-index: 999;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+.sticky-bottom-bar .btn {
+    padding: 10px 5px;
+    font-size: 0.85rem;
+    font-family: var(--font-secondary);
+    font-weight: bold;
+}

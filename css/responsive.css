@@ -1,0 +1,63 @@
+/* ==========================================================================
+   AMIT KE CIRCUITS - RESPONSIVE STYLES
+   ========================================================================== */
+
+/* Target Mobile Interfaces and Keep App Container Consistent */
+@media screen and (min-width: 481px) {
+    body {
+        background-color: #020202;
+    }
+    
+    .container, .top-navbar, .sticky-bottom-bar, #opening-scene, #story-mode-view {
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+    
+    .sticky-bottom-bar {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #opening-scene {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+}
+
+/* Small Screens Adjustments */
+@media screen and (max-width: 360px) {
+    h1 {
+        font-size: 1.8rem !important;
+    }
+    h2 {
+        font-size: 1.4rem !important;
+    }
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+    .prop-card {
+        padding: 10px !important;
+    }
+}
+
+/* Fix safe areas for newer modern phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .sticky-bottom-bar {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+    body {
+        padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+}
+
+@media print {
+    .sticky-bottom-bar, .top-navbar, .btn, video, #opening-scene {
+        display: none !important;
+    }
+}
