@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Circuit Member Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+    <!-- DYNAMIC ROUTED HEAD NAVBAR LAYER -->
+    <nav class="top-navbar">
+        <a href="index.html" style="color:var(--primary-gold); font-weight:bold; font-size:0.9rem;" onclick="logEvent('Back To Hub Clicked','Member Navigation')">&larr; TEAM CIRCUITS</a>
+        <div class="logo-text" id="header-member-title">CIRCUIT <span>PROFILE</span></div>
+    </nav>
+
+    <!-- MAIN ISOMORPHIC PRESENTATION VIEWS CORE -->
+    <main id="member-profile-container" class="container" style="padding-bottom:100px;">
+        
+        <!-- SECTION 1: CUSTOM IDENTIFIED INITIALIZATION ELEMENT STAGE GRAPHICS -->
+        <div id="entrance-animation-canvas" style="background:#111; height:120px; border-radius:8px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+            <!-- Animation context container frame structural assets -->
+        </div>
+
+        <!-- SECTION 2: DISCOVERY HERO GRAPHICS BOX SHELL -->
+        <section id="member-hero" class="text-center" style="margin-bottom:30px;">
+            <div style="width:130px; height:130px; border-radius:50%; overflow:hidden; margin:0 auto 15px auto; border:3px solid var(--primary-gold); background:#222;">
+                <img id="m-photo" src="" alt="" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+            </div>
+            <h1 id="m-name" style="font-size:2.2rem; margin-bottom:5px; color:#fff;">Member Name</h1>
+            <div id="m-category" style="font-family:var(--font-primary); color:var(--primary-gold); font-size:1.1rem; text-transform:uppercase; margin-bottom:15px;">Category Label</div>
+            
+            <div style="background:var(--bg-card); padding:15px; border-radius:8px; border-left:4px solid var(--primary-yellow); margin-bottom:20px;">
+                <p id="m-tagline" style="font-style:italic; font-weight:bold; font-size:1rem; color:var(--text-light);">"Punchline Sentence Here"</p>
+            </div>
+
+            <!-- Direct Instant Primary Action Triggers -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px;">
+                <a id="link-direct-call" href="" class="btn btn-call">Call Directly</a>
+                <a id="link-direct-whatsapp" href="" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+            </div>
+            <a id="link-direct-dan" href="" class="btn btn-dan" target="_blank">View Digital DAN Card</a>
+        </section>
+
+        <!-- SECTION 3: MULTI-MEDIA VIDEO BLOCK CONTEXT -->
+        <section id="member-video-frame" style="margin-bottom:40px;">
+            <h3 style="margin-bottom:12px; font-size:1.1rem; color:var(--text-muted);">Circuit Solution Pitch</h3>
+            <div style="position:relative; padding-top:56.25%; background:#000; border-radius:8px; overflow:hidden; border:1px solid #333;">
+                <video id="m-video" style="position:absolute; top:0; left:0; width:100%; height:100%;" controls preload="none" muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support videos.
+                </video>
+            </div>
+        </section>
+
+        <!-- SECTION 4: FIVE INTERACTIVE PROP BLOCKS TAB CONTROLS -->
+        <section id="interactive-props-accordion" style="margin-bottom:40px;">
+            <h3 style="margin-bottom:15px; text-align:center;">Explore Circuit Architecture</h3>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                
+                <!-- Prop 1: Problem -->
+                <div class="accordion-item" style="background:var(--bg-card); border-radius:6px; overflow:hidden;">
+                    <button class="accordion-trigger" style="width:100%; background:none; border:none; text-align:left; padding:15px; color:var(--primary-gold); font-family:var(--font-primary); font-size:1rem; display:flex; justify-content:space-between; cursor:pointer;">
+                        <span>⚠️ BUSINESS PROBLEMS I SOLVE</span><span>+</span>
+                    </button>
+                    <div class="accordion-content hidden" style="padding:0 15px 15px 15px; color:var(--text-muted); font-size:0.9rem;" id="m-prop-problems">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+                <!-- Prop 2: Solution -->
+                <div class="accordion-item" style="background:var(--bg-card); border-radius:6px; overflow:hidden;">
+                    <button class="accordion-trigger" style="width:100%; background:none; border:none; text-align:left; padding:15px; color:var(--primary-gold); font-family:var(--font-primary); font-size:1rem; display:flex; justify-content:space-between; cursor:pointer;">
+                        <span>⚙️ HOW I DO IT (NO JARGON)</span><span>+</span>
+                    </button>
+                    <div class="accordion-content hidden" style="padding:0 15px 15px 15px; color:var(--text-muted); font-size:0.9rem;" id="m-prop-solutions">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+                <!-- Prop 3: Referral -->
+                <div class="accordion-item" style="background:var(--bg-card); border-radius:6px; overflow:hidden;">
+                    <button class="accordion-trigger" style="width:100%; background:none; border:none; text-align:left; padding:15px; color:var(--primary-gold); font-family:var(--font-primary); font-size:1rem; display:flex; justify-content:space-between; cursor:pointer;">
+                        <span>🎯 MY IDEAL REFERRAL ASK</span><span>+</span>
+                    </button>
+                    <div class="accordion-content hidden" style="padding:0 15px 15px 15px; color:var(--text-muted); font-size:0.9rem;" id="m-prop-referrals">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+                <!-- Prop 4: Resource -->
+                <div class="accordion-item" style="background:var(--bg-card); border-radius:6px; overflow:hidden;">
+                    <button class="accordion-trigger" style="width:100%; background:none; border:none; text-align:left; padding:15px; color:var(--primary-gold); font-family:var(--font-primary); font-size:1rem; display:flex; justify-content:space-between; cursor:pointer;">
+                        <span>📊 VALUABLE RESOURCE PREVIEW</span><span>+</span>
+                    </button>
+                    <div class="accordion-content hidden" style="padding:0 15px 15px 15px; color:var(--text-muted); font-size:0.9rem;" id="m-prop-resource">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+                <!-- Prop 5: Contact -->
+                <div class="accordion-item" style="background:var(--bg-card); border-radius:6px; overflow:hidden;">
+                    <button class="accordion-trigger" style="width:100%; background:none; border:none; text-align:left; padding:15px; color:var(--primary-gold); font-family:var(--font-primary); font-size:1rem; display:flex; justify-content:space-between; cursor:pointer;">
+                        <span>📞 DIRECT CHANNELS RECAP</span><span>+</span>
+                    </button>
+                    <div class="accordion-content hidden" style="padding:0 15px 15px 15px; color:var(--text-muted); font-size:0.9rem;" id="m-prop-contact">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 6 & 7: EXPLICIT QUALITY FILTER BOUNDARIES -->
+        <section id="referral-matrix" style="margin-bottom:40px; display:flex; flex-direction:column; gap:20px;">
+            <div style="background:rgba(0, 204, 102, 0.08); border:1px solid var(--accent-green); padding:20px; border-radius:8px;">
+                <h4 style="color:var(--accent-green); margin-bottom:10px; font-size:1.1rem;">✅ CONNECT ME WITH (BEST REFERRALS)</h4>
+                <ul id="list-best-referrals" style="padding-left:20px; font-size:0.9rem; color:var(--text-light); display:flex; flex-direction:column; gap:6px;">
+                    <!-- Injected -->
+                </ul>
+            </div>
+
+            <div style="background:rgba(255, 51, 51, 0.08); border:1px solid var(--accent-red); padding:20px; border-radius:8px;">
+                <h4 style="color:var(--accent-red); margin-bottom:10px; font-size:1.1rem;">❌ NOT AN IDEAL REFERRAL</h4>
+                <ul id="list-not-ideal" style="padding-left:20px; font-size:0.9rem; color:var(--text-muted); display:flex; flex-direction:column; gap:6px;">
+                    <!-- Injected -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 8: INDIVIDUAL DOWNLOAD HOOK -->
+        <section id="download-action-card" style="background:var(--bg-card-alt); border:1px solid #333; padding:20px; border-radius:8px; text-center; margin-bottom:40px;" class="text-center">
+            <h4 style="color:#fff; margin-bottom:8px;" id="lbl-resource-title">Resource Blueprint Sheet</h4>
+            <a id="btn-resource-download" href="thank-you.html?action=download" class="btn btn-primary" style="font-size:0.95rem; padding:12px;">Download Free Checklist</a>
+        </section>
+
+        <!-- SECTION 9: SOCIAL TRUST / PROOF MATRIX -->
+        <section id="trust-proof-matrix" class="text-center" style="padding:20px; background:#111; border-radius:8px;">
+            <h4 style="font-size:1rem; color:var(--primary-gold); margin-bottom:10px;">Verified Circuit Operator</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">100% Industry compliance delivery metrics within the network circle parameters.</p>
+        </section>
+
+    </main>
+
+    <!-- SECTION 10: STICKY CONVERSION BAR MATRIX FOR MEMBER ROUTE -->
+    <footer class="sticky-bottom-bar" id="member-sticky-bar">
+        <a id="sticky-call" href="" class="btn btn-call">Call</a>
+        <a id="sticky-whatsapp" href="" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+        <a id="sticky-dan" href="" class="btn btn-dan" target="_blank">DAN</a>
+    </footer>
+
+    <!-- EXECUTION UTILITIES -->
+    <script src="js/data.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/member.js"></script>
+</body>
+</html>

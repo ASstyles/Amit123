@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Amit Ke Circuits | Interactive Referral Journey</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+    <!-- TOP NAVBAR -->
+    <nav class="top-navbar">
+        <div class="logo-text">AMIT KE <span>CIRCUITS ⚡</span></div>
+        <button class="btn btn-secondary" style="width:auto; padding:5px 12px; font-size:0.8rem;" id="nav-quick-toggle">Quick List</button>
+    </nav>
+
+    <!-- SECTION 1: OPENING SCENE (CINEMATIC INTRO) -->
+    <section id="opening-scene" class="text-center">
+        <div style="position: relative; height: 300px; width: 100%; overflow: hidden;">
+            <svg class="circuit-svg" style="width:100%; height:100%; stroke:#262626; fill:none;" viewBox="0 0 480 300">
+                <path d="M 240 50 Q 100 200 240 350 T 240 600" stroke-width="4"/>
+            </svg>
+            <div class="spark-particle"></div>
+        </div>
+        
+        <div style="padding: 20px;" class="fade-in-up">
+            <h1 style="font-size:2.5rem; margin-bottom:10px; color:var(--primary-gold);">Amit Ke Circuits</h1>
+            <p style="font-size:1.2rem; font-weight:bold; margin-bottom:30px; color:#fff;" id="dynamic-tagline">
+                Tension koi bhi ho… right Circuit se connect karne ka!
+            </p>
+            
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <button class="btn btn-primary pulse-cta" id="btn-start-journey">Start the Circuit Journey</button>
+                <button class="btn btn-secondary" id="btn-quick-connect">I know whom I want to contact</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN INTERACTIVE HUB (STORY MODE VIEW) -->
+    <main id="story-mode-view" class="hidden container">
+        
+        <!-- SECTION 2: BUSINESS TENSION SETUP -->
+        <section id="tension-setup" class="text-center" style="margin-bottom: 40px;">
+            <h2 style="font-size:1.8rem; margin-bottom:15px;">Dhandha grow karna hai… par tension ek nahi, saat hain!</h2>
+            <div id="problem-words-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; min-height:40px;">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 3: INTERACTIVE PROP MAP -->
+        <section id="prop-map" style="margin-bottom: 40px;">
+            <h3 class="text-center" style="margin-bottom:20px; font-size:1.2rem; color:var(--text-muted)">Tap a prop to fix the tension</h3>
+            <div id="props-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <!-- Dynamically populated from data.js -->
+            </div>
+        </section>
+
+        <!-- SECTION 4: PROP REVEAL PANEL OVERLAY -->
+        <div id="reveal-overlay" class="hidden" style="background:var(--bg-card); border:2px solid var(--primary-gold); padding:20px; border-radius:12px; margin-bottom:40px; position:relative;">
+            <button id="close-reveal" style="position:absolute; top:10px; right:15px; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <div id="reveal-content">
+                <!-- Injected via JavaScript dynamically -->
+            </div>
+        </div>
+
+        <!-- SECTION 5: PROBLEM TO CIRCUIT QUICK CARDS -->
+        <section id="circuit-guide" style="margin-bottom: 40px;">
+            <h2 class="text-center" style="margin-bottom:20px;">Problem to Circuit Guide</h2>
+            <div id="guide-cards-list" style="display:flex; flex-direction:column; gap:15px;">
+                <!-- Dynamically structural cards injected here -->
+            </div>
+        </section>
+
+        <!-- SECTION 6: BUSINESS GROWTH TOOLKIT -->
+        <section id="toolkit-promo" class="text-center" style="background:#111; border:1px dashed var(--primary-gold); padding:25px; border-radius:12px; margin-bottom:40px;">
+            <h2 style="color:var(--primary-yellow);">Amit Ke Circuits Business Growth Toolkit</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin:10px 0 20px 0;">7 practical resources from 7 trusted business categories.</p>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <a href="toolkit.html" class="btn btn-primary">Download Full Toolkit</a>
+            </div>
+        </section>
+
+        <!-- SECTION 7: EXPERIMENTAL WEBAR FALLBACK PORTAL -->
+        <section id="ar-portal" class="text-center" style="margin-bottom: 40px; padding:20px; background:linear-gradient(to bottom, #000, #1a1500); border-radius:12px;">
+            <h3>Activate Circuit AR ⚡</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:8px 0 15px 0;">Scan the Circuit AR Badge and watch Amit Ke Circuits come alive.</p>
+            <button class="btn btn-secondary" id="trigger-ar-flow">Try AR Experience</button>
+            <div id="ar-error-fallback" class="hidden" style="font-size:0.8rem; color:var(--accent-red); margin-top:10px;">
+                Camera ya AR load nahi hua? Koi tension nahi. Microsite loading active hai!
+            </div>
+        </section>
+
+        <!-- SECTION 8: FINAL CTA CONVERSION SUMMARY -->
+        <section id="final-cta" class="text-center" style="padding:40px 0 20px 0; border-top:1px solid #222;">
+            <h2 style="font-size:2rem; margin-bottom:10px;">Aapke network mein koi business tension mein hai?</h2>
+            <p style="color:var(--text-muted); margin-bottom:25px;">Right Circuit se connect karo instantly.</p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <a href="thank-you.html?action=referral" class="btn btn-primary">Refer Someone Now</a>
+                <a href="https://wa.me/919876543210?text=Hello%20Circuit%20Team" class="btn btn-whatsapp" target="_blank">WhatsApp Team Directly</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- EXPLICIT QUICK CONNECT DIRECT MODAL ELEMENT LISTING -->
+    <div id="quick-mode-view" class="hidden container" style="padding-top:20px; padding-bottom:100px;">
+        <h2 class="text-center" style="margin-bottom:20px;">Quick Direct Connections</h2>
+        <button class="btn btn-secondary" id="back-to-story" style="margin-bottom:25px;">&larr; Switch To Story Journey</button>
+        <div id="quick-members-list" style="display:flex; flex-direction:column; gap:15px;">
+            <!-- Dynamically populated direct quick contact sheet row vectors via JS -->
+        </div>
+    </div>
+
+    <!-- PERSISTENT APP LEVEL BOTTOM NOTIFICATION BAR MATRIX -->
+    <footer class="sticky-bottom-bar">
+        <a href="toolkit.html" class="btn btn-secondary" onclick="logEvent('Sticky Toolkit Clicked','Global')">Toolkit</a>
+        <a href="thank-you.html?action=referral" class="btn btn-primary" onclick="logEvent('Sticky Refer Clicked','Global')">Refer</a>
+        <a href="https://wa.me/919876543210" class="btn btn-whatsapp" target="_blank" onclick="logEvent('Sticky WhatsApp Clicked','Global')">WhatsApp</a>
+    </footer>
+
+    <!-- RUNTIME BUNDLES -->
+    <script src="js/data.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

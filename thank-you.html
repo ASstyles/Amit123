@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Action Confirmed | Amit Ke Circuits</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .thank-you-card { background: var(--bg-card); border: 2px solid var(--primary-gold); padding: 40px 20px; border-radius: 12px; text-align: center; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+    <div class="thank-you-card class-fade-in-up">
+        <div style="font-size:4rem; color:var(--primary-gold); margin-bottom:15px;">⚡</div>
+        <h1 id="thank-you-headline" style="font-size:2.2rem; margin-bottom:10px;">ACTION TRACKED</h1>
+        <p id="thank-you-message" style="color:var(--text-muted); font-size:1rem; margin-bottom:30px;">
+            Circuit transaction logging event processing pipelines completed successfully.
+        </p>
+        
+        <div style="display:flex; flex-direction:column; gap:12px;">
+            <a href="index.html" class="btn btn-primary">Return To Circuit Hub</a>
+            <a href="https://wa.me/919876543210" class="btn btn-whatsapp" target="_blank">Contact Support Line</a>
+        </div>
+    </div>
+
+    <script src="js/analytics.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const contextType = params.get("action");
+            const elementId = params.get("id") || "Unknown Object Reference";
+            
+            const head = document.getElementById("thank-you-headline");
+            const bodyText = document.getElementById("thank-you-message");
+
+            switch(contextType) {
+                case "download":
+                    head.innerText = "DOWNLOAD STARTED!";
+                    bodyText.innerText = `Your specific resource document link track payload (${elementId}) is loading. Check your system directory trace folder!`;
+                    logEvent(`Success Download Completion Execution: ${elementId}`, "User Conversion Funnel");
+                    break;
+                case "full_toolkit":
+                    head.innerText = "BUNDLE DEPLOYED!";
+                    bodyText.innerText = "All 7 practical structural business diagnostic checklists have been packed. Combined operational toolkit framework document loading initiated.";
+                    logEvent("Success Multi Bundle Pack Delivery Confirmed", "User Conversion Funnel");
+                    break;
+                case "referral":
+                    head.innerText = "CONNECTION INITIATED!";
+                    bodyText.innerText = "Tension solved! The network routing channels have logged the prospective business contact vector request. Our circuit operator team will touch base directly.";
+                    logEvent("Success Referral Submission Completed Link Logging", "User Conversion Funnel");
+                    break;
+                default:
+                    head.innerText = "THANK YOU!";
+                    bodyText.innerText = "Tension koi bhi ho… Amit Ke Circuits se connect karne ka!";
+                    logEvent("Success Generic Loop Navigation Processing Trace", "User Conversion Funnel");
+            }
+        });
+    </script>
+</body>
+</html>
