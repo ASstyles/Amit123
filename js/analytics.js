@@ -1,32 +1,47 @@
-/* ==========================================================================
-   AMIT KE CIRCUITS - CENTRAL ANALYTICS EVENT MONITOR INTERCEPTOR
-   ========================================================================== */
+(function () {
+  window.dataLayer = window.dataLayer || [];
 
-/**
- * Dispatches application execution interaction vectors safely to telemetry monitoring surfaces.
- * Fallback patterns automatically prevent execution blocks if network endpoints are missing.
- * @param {string} actionIdentifier - Structural label categorizing user element action trace logs.
- * @param {string} structuralCategory - Explicit context block mapping origin of user event sequences.
- */
-function logEvent(actionIdentifier, structuralCategory = "Generic User Interface Interaction Vector") {
-    const transactionTimestamp = new Date().toISOString();
-    
-    // 1. Build Payload Standard Contract Model Scheme
-    const eventTelemetryPayload = {
-        event: "Circuit_Interaction_Vector_Track",
-        action: actionIdentifier,
-        category: structuralCategory,
-        clientTimestamp: transactionTimestamp,
-        viewportWidth: window.innerWidth || document.documentElement.clientWidth,
-        hrefAddressContext: window.location.href
-    };
+  if (window.CIRCUIT_GA_ID) {
+    var gaScript = document.createElement("script");
+    gaScript.async = true;
+    gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(window.CIRCUIT_GA_ID);
+    document.head.appendChild(gaScript);
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", window.CIRCUIT_GA_ID);
+  }
 
-    // 2. Commit Structured Performance Analytics to Console Mirror Lines
-    console.log(`%c[CIRCUIT TELEMETRY LOG] %c${structuralCategory} -> ${actionIdentifier}`, "color: #ffcc00; font-weight: bold;", "color: #fff;", eventTelemetryPayload);
+  window.trackCircuitEvent = function (eventName, details) {
+    var payload = Object.assign({
+      event: eventName,
+      page_path: window.location.pathname,
+      timestamp: new Date().toISOString()
+    }, details || {});
 
-    // 3. Optional Extensibility Hook Layer
-    // Safe binding verification logic pattern targeting Phase 2 external tracking scripts (Google Analytics / pixel tags)
-    if (typeof window.dataLayer !== "undefined") {
-        window.dataLayer.push(eventTelemetryPayload);
+    window.dataLayer.push(payload);
+    if (typeof window.gtag === "function") window.gtag("event", eventName, details || {});
+    try {
+      var history = JSON.parse(sessionStorage.getItem("circuitEvents") || "[]");
+      history.push(payload);
+      sessionStorage.setItem("circuitEvents", JSON.stringify(history.slice(-50)));
+    } catch (error) {
+      // Analytics must never block the visitor journey.
     }
-}
+  };
+
+  window.addEventListener("DOMContentLoaded", function () {
+    var params = new URLSearchParams(window.location.search);
+    var memberId = params.get("id") || undefined;
+    window.trackCircuitEvent("circuit_page_view", { title: document.title, member_id: memberId });
+    if (params.get("source") === "qr" || params.get("utm_source") === "qr") {
+      window.trackCircuitEvent("qr_landing_visit", { title: document.title });
+    }
+    document.addEventListener("click", function (event) {
+      var target = event.target.closest("[data-track]");
+      if (target) window.trackCircuitEvent(target.dataset.track, {
+        label: target.textContent.trim(),
+        member_id: target.dataset.memberId || memberId
+      });
+    });
+  });
+})();

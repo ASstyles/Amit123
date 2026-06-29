@@ -1,203 +1,89 @@
-/* ==========================================================================
-   AMIT KE CIRCUITS - MAIN INDEX CORE HANDLER APPLICATION CONTROLLER
-   ========================================================================== */
+(function () {
+  var team = window.CIRCUIT_TEAM;
+  var propStage = document.getElementById("prop-stage");
+  var revealPanel = document.getElementById("reveal-panel");
+  var quickGrid = document.getElementById("quick-grid");
+  var quickSection = document.getElementById("quick-connect");
+  var guideList = document.getElementById("guide-list");
+  var storyScenes = document.getElementById("story-scenes");
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Structural DOM Registry Nodes
-    const openingScene = document.getElementById("opening-scene");
-    const storyModeView = document.getElementById("story-mode-view");
-    const quickModeView = document.getElementById("quick-mode-view");
-    
-    const btnStartJourney = document.getElementById("btn-start-journey");
-    const btnQuickConnect = document.getElementById("btn-quick-connect");
-    const navQuickToggle = document.getElementById("nav-quick-toggle");
-    const btnBackToStory = document.getElementById("back-to-story");
-    
-    const problemWordsContainer = document.getElementById("problem-words-container");
-    const propsGrid = document.getElementById("props-grid");
-    const revealOverlay = document.getElementById("reveal-overlay");
-    const revealContent = document.getElementById("reveal-content");
-    const closeReveal = document.getElementById("close-reveal");
-    const guideCardsList = document.getElementById("guide-cards-list");
-    const quickMembersList = document.getElementById("quick-members-list");
-    const triggerArFlow = document.getElementById("trigger-ar-flow");
-    const arFallback = document.getElementById("ar-error-fallback");
+  function memberUrl(member) { return "member.html?id=" + encodeURIComponent(member.id); }
+  function whatsappUrl(member) {
+    return "https://wa.me/?text=" + encodeURIComponent("Hello " + member.name + ", I found you through Amit Ke Circuits and would like to discuss: " + member.problem + ".");
+  }
 
-    // Initialize Analytics Entry Capture Viewport
-    if (typeof logEvent === "function") {
-        logEvent("QR Landing View Hit", "Identity Entry Pipeline");
-    }
+  function buildProp(member) {
+    var button = document.createElement("button");
+    button.className = "prop-button";
+    button.type = "button";
+    button.dataset.member = member.id;
+    button.setAttribute("aria-label", member.tension + " Reveal " + member.name);
+    button.innerHTML = '<span class="prop-icon">' + window.propIcon(member.icon) + "</span><strong>" + member.tension + "</strong><small>Tap to connect</small>";
+    button.addEventListener("click", function () { revealMember(member, button); });
+    return button;
+  }
 
-    // Navigation Layer State Management Systems
-    function activateStoryMode() {
-        openingScene.classList.add("hidden");
-        quickModeView.classList.add("hidden");
-        storyModeView.classList.remove("hidden");
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        renderStoryModeContent();
-        logEvent("Story Mode Activated", "Navigation Routing");
-    }
+  function revealMember(member, source) {
+    document.querySelectorAll(".prop-button").forEach(function (button) { button.classList.toggle("active", button === source); });
+    revealPanel.hidden = false;
+    revealPanel.classList.remove("is-entering");
+    void revealPanel.offsetWidth;
+    revealPanel.classList.add("is-entering");
+    var revealVisual = member.photo
+      ? '<div class="reveal-character-stage reveal-profile character-' + member.id + '"><span class="stage-effect" aria-hidden="true"></span><img src="' + member.photo + '" alt="Professional portrait of ' + member.name + '"></div>'
+      : '<div class="reveal-prop"><span class="prop-icon">' + window.propIcon(member.icon) + '</span><div class="member-monogram">' + member.initials + '</div></div>';
+    revealPanel.innerHTML = '<div class="reveal-grid">' + revealVisual + '<div><p class="section-kicker">Circuit Found / ' + member.category + '</p><h3>' + member.name + '</h3><p class="reveal-tagline">“' + member.tagline + '”</p><p>' + member.shortIntro + '</p><p class="reveal-hint"><strong>Ideal connection:</strong> ' + member.referrals.slice(0, 2).join(" · ") + '</p><div class="button-row"><a class="button button-primary button-small" href="' + memberUrl(member) + '" data-track="member_profile_selected" data-member-id="' + member.id + '">Enter Their Story →</a><a class="button button-ghost button-small" href="' + whatsappUrl(member) + '" target="_blank" rel="noopener" data-track="whatsapp_clicked" data-member-id="' + member.id + '">WhatsApp</a><a class="text-link" href="' + member.resourceFile + '" download data-track="resource_downloaded" data-member-id="' + member.id + '">Download resource ↓</a></div></div></div>';
+    window.trackCircuitEvent("prop_clicked", { member_id: member.id, problem: member.problem });
+    if (window.innerWidth < 800) revealPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
-    function activateQuickMode() {
-        openingScene.classList.add("hidden");
-        storyModeView.classList.add("hidden");
-        quickModeView.classList.remove("hidden");
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        renderQuickModeContent();
-        logEvent("Quick Mode Activated", "Navigation Routing");
-    }
+  function buildQuickCard(member) {
+    var avatar = member.photo ? '<span class="quick-avatar"><img src="' + member.photo + '" alt="" loading="lazy"></span>' : '<span class="prop-icon">' + window.propIcon(member.icon) + '</span>';
+    return '<a class="quick-card" href="' + memberUrl(member) + '" data-track="member_profile_selected" data-member-id="' + member.id + '">' + avatar + '<span><strong>' + member.name + '</strong><small>' + member.problem + '</small></span><span class="quick-arrow">→</span></a>';
+  }
 
-    // Click Binder Mappings
-    btnStartJourney.addEventListener("click", activateStoryMode);
-    btnQuickConnect.addEventListener("click", activateQuickMode);
-    navQuickToggle.addEventListener("click", () => {
-        if(quickModeView.classList.contains("hidden")) {
-            activateQuickMode();
-        } else {
-            activateStoryMode();
-        }
+  function buildGuideRow(member) {
+    var avatar = member.photo ? '<span class="guide-avatar"><img src="' + member.photo + '" alt="" loading="lazy"></span>' : "";
+    return '<a class="guide-row" href="' + memberUrl(member) + '" data-track="member_profile_selected" data-member-id="' + member.id + '">' + avatar + '<span>' + member.problem + '</span><strong>Connect with ' + member.name + '</strong><b class="quick-arrow">→</b></a>';
+  }
+
+  team.forEach(function (member) { propStage.appendChild(buildProp(member)); });
+  storyScenes.innerHTML = team.filter(function (member) { return member.characterImage; }).map(function (member, index) {
+    return '<button class="story-scene character-' + member.id + '" type="button" data-story-member="' + member.id + '" style="--scene-index:' + index + '"><span class="stage-effect" aria-hidden="true"></span><img src="' + member.characterImage + '" alt="Animated character representation of ' + member.name + '" loading="lazy"><span class="story-scene-copy"><small>Case file 0' + (index + 1) + '</small><strong>' + member.sceneLabel + '</strong><b>Meet ' + member.name.split(" ")[0] + ' →</b></span></button>';
+  }).join("");
+  quickGrid.innerHTML = team.map(buildQuickCard).join("");
+  guideList.innerHTML = team.map(buildGuideRow).join("");
+
+  document.querySelectorAll("[data-story-member]").forEach(function (scene) {
+    scene.addEventListener("click", function () {
+      var member = window.getCircuitMember(scene.dataset.storyMember);
+      var prop = document.querySelector('[data-member="' + member.id + '"]');
+      document.getElementById("journey").scrollIntoView({ behavior: "smooth" });
+      window.setTimeout(function () { revealMember(member, prop); }, 450);
     });
-    btnBackToStory.addEventListener("click", activateStoryMode);
-    closeReveal.addEventListener("click", () => {
-        revealOverlay.classList.add("hidden");
-        document.querySelectorAll(".prop-card").forEach(c => c.classList.remove("prop-glow-active"));
+  });
+
+  document.querySelectorAll("[data-mode]").forEach(function (control) {
+    control.addEventListener("click", function (event) {
+      var mode = control.dataset.mode;
+      window.trackCircuitEvent(mode === "story" ? "start_journey_clicked" : "quick_mode_clicked");
+      if (mode === "quick") {
+        event.preventDefault();
+        quickSection.classList.add("is-open");
+        quickSection.scrollIntoView({ behavior: "smooth" });
+      }
     });
+  });
 
-    // Content Rendering System Implementation
-    function renderStoryModeContent() {
-        // Build Setup Problem Words
-        if(problemWordsContainer.children.length === 0) {
-            const issues = ["Factory", "Lift", "Accounts", "Training", "Wellness", "Gifting", "Vending"];
-            issues.forEach((word, idx) => {
-                const el = document.createElement("span");
-                el.className = "problem-word-glow";
-                el.style.animationDelay = `${idx * 0.2}s`;
-                el.style.padding = "6px 12px";
-                el.style.background = "#1a1a1a";
-                el.style.borderRadius = "4px";
-                el.style.border = "1px solid #333";
-                el.style.fontSize = "0.9rem";
-                el.style.fontWeight = "bold";
-                el.innerText = word;
-                problemWordsContainer.appendChild(el);
-            });
-        }
+  var motionToggle = document.getElementById("motion-toggle");
+  motionToggle.addEventListener("click", function () {
+    var paused = document.body.classList.toggle("motion-paused");
+    motionToggle.setAttribute("aria-pressed", String(paused));
+    motionToggle.textContent = paused ? "Resume motion" : "Pause motion";
+  });
 
-        // Build Clickable Map Interactive Node Grid elements
-        if(propsGrid.children.length === 0) {
-            membersData.forEach(member => {
-                const card = document.createElement("div");
-                card.className = "prop-card fade-in-up";
-                card.style.background = "var(--bg-card)";
-                card.style.border = "2px solid #333";
-                card.style.borderRadius = "8px";
-                card.style.padding = "15px";
-                card.style.cursor = "pointer";
-                card.style.display = "flex";
-                card.style.flexDirection = "column";
-                card.style.alignItems = "center";
-                card.style.textAlign = "center";
-                card.setAttribute("data-id", member.id);
-                
-                card.innerHTML = `
-                    <div style="margin-bottom:10px; color:var(--primary-gold);">${member.iconHtml}</div>
-                    <span style="font-family:var(--font-primary); font-size:1.1rem; color:#fff;">${member.propName}</span>
-                    <small style="color:var(--primary-yellow); margin-top:4px;">${member.propLabel}</small>
-                `;
-
-                card.addEventListener("click", () => handlePropTap(member.id, card));
-                propsGrid.appendChild(card);
-            });
-        }
-
-        // Build Reference Cross Walk Guides Section
-        if(guideCardsList.children.length === 0) {
-            membersData.forEach(member => {
-                const row = document.createElement("div");
-                row.style.background = "var(--bg-card-alt)";
-                row.style.padding = "15px";
-                row.style.borderRadius = "8px";
-                row.style.display = "flex";
-                row.style.justifyContent = "between";
-                row.style.alignItems = "center";
-                row.style.borderLeft = "4px solid var(--primary-gold)";
-                
-                row.innerHTML = `
-                    <div style="flex:1;">
-                        <strong style="color:#fff; font-size:0.95rem;">${member.propLabel.replace('?','')} Issues</strong>
-                        <p style="font-size:0.8rem; color:var(--text-muted);">${member.shortIntro}</p>
-                    </div>
-                    <a href="member.html?id=${member.id}" class="btn btn-primary" style="width:auto; padding:6px 12px; font-size:0.75rem;">Connect ${member.name.split(' ')[0]}</a>
-                `;
-                guideCardsList.appendChild(row);
-            });
-        }
-    }
-
-    function handlePropTap(id, element) {
-        document.querySelectorAll(".prop-card").forEach(c => c.classList.remove("prop-glow-active"));
-        element.classList.add("prop-glow-active");
-        
-        const member = membersData.find(m => m.id === id);
-        if(!member) return;
-
-        logEvent(`Prop Clicked: ${id}`, "Interactive Blueprint Discovery Engine");
-
-        revealContent.innerHTML = `
-            <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                <div style="width:60px; height:60px; border-radius:50%; overflow:hidden; border:2px solid var(--primary-gold);">
-                    <img src="${member.photo}" alt="${member.name}" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-                <div>
-                    <h4 style="font-size:1.3rem; margin:0;">${member.name}</h4>
-                    <span style="font-size:0.85rem; color:var(--primary-yellow); font-weight:bold;">${member.category}</span>
-                </div>
-            </div>
-            <p style="font-style:italic; font-weight:bold; color:#fff; margin-bottom:10px; border-left:3px solid var(--primary-gold); padding-left:10px;">
-                "${member.tagline}"
-            </p>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">
-                <strong>Problem Solved:</strong> ${member.shortIntro}
-            </p>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                <a href="member.html?id=${member.id}" class="btn btn-primary" style="font-size:0.85rem; padding:10px;">Know More</a>
-                <a href="https://wa.me/${member.whatsapp}?text=Hi%20${member.name},%20saw%20your%20circuit%20profile" class="btn btn-whatsapp" style="font-size:0.85rem; padding:10px;" target="_blank">WhatsApp</a>
-            </div>
-        `;
-        revealOverlay.classList.remove("hidden");
-        revealOverlay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function renderQuickModeContent() {
-        if(quickMembersList.children.length === 0) {
-            membersData.forEach(member => {
-                const card = document.createElement("div");
-                card.style.background = "var(--bg-card)";
-                card.style.border = "1px solid #333";
-                card.style.borderRadius = "8px";
-                card.style.padding = "15px";
-                card.style.display = "flex";
-                card.style.justifyContent = "space-between";
-                card.style.alignItems = "center";
-                
-                card.innerHTML = `
-                    <div>
-                        <h4 style="margin:0; font-size:1.1rem; color:var(--primary-gold);">${member.name}</h4>
-                        <small style="color:var(--text-muted); font-weight:bold;">${member.category}</small>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <a href="tel:${member.phone}" class="btn btn-call" style="width:auto; padding:8px 12px; font-size:0.8rem;">Call</a>
-                        <a href="member.html?id=${member.id}" class="btn btn-primary" style="width:auto; padding:8px 12px; font-size:0.8rem;">Profile</a>
-                    </div>
-                `;
-                quickMembersList.appendChild(card);
-            });
-        }
-    }
-
-    // Experimental WebAR Feature Interception Implementation Trigger
-    triggerArFlow.addEventListener("click", () => {
-        logEvent("AR Activation Attempted", "WebAR Matrix Core");
-        arFallback.classList.remove("hidden");
-    });
-});
+  document.getElementById("refer-whatsapp").href = window.CIRCUIT_CONTACTS.referWhatsapp;
+  document.getElementById("team-whatsapp").href = window.CIRCUIT_CONTACTS.teamWhatsapp;
+  document.getElementById("sticky-whatsapp").href = window.CIRCUIT_CONTACTS.teamWhatsapp;
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
