@@ -1,68 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Amit Ke Circuits | Business Growth Toolkit</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/animations.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#080907">
+  <title>Business Growth Toolkit | Amit Ke Circuits</title>
+  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css">
+  <script src="js/data.js" defer></script><script src="js/analytics.js" defer></script><script src="js/audio.js" defer></script><script src="js/toolkit.js" defer></script>
 </head>
-<body>
-
-    <!-- TOP NAVIGATION HEAD -->
-    <nav class="top-navbar">
-        <a href="index.html" style="color:var(--primary-gold); font-weight:bold; font-size:0.9rem;">&larr; BACK TO HUB</a>
-        <div class="logo-text">GROWTH <span>TOOLKIT</span></div>
-    </nav>
-
-    <!-- CONTENT ELEMENT CONTAINER MATRICES -->
-    <main class="container" style="padding-top:20px; padding-bottom:100px;">
-        <div class="text-center" style="margin-bottom:30px;">
-            <h1 style="font-size:2rem; margin-bottom:10px;">Master Business Toolkit</h1>
-            <p style="color:var(--text-muted); font-size:0.9rem;">Access individual strategic diagnostic resources from all 7 verified circuit operation categories simultaneously.</p>
-        </div>
-
-        <!-- BATCH MASS DOWNLOAD HOOKS LINK CONTROLS -->
-        <div style="margin-bottom:35px;">
-            <a href="thank-you.html?action=full_toolkit" class="btn btn-primary pulse-cta" onclick="logEvent('Download Full Toolkit Clicked','Global Toolkit Page')">Download Combined 7-in-1 Bundle PDF</a>
-        </div>
-
-        <h3 style="margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:8px;">Individual Resources</h3>
-        <div id="toolkit-resources-injection-grid" style="display:flex; flex-direction:column; gap:15px;">
-            <!-- Dynamically populated checklist framework vectors directly mapping index data values rows -->
-        </div>
-    </main>
-
-    <!-- LOGICAL DATA HYDRATION LAYER INTEGRATION SCRIPT -->
-    <script src="js/data.js"></script>
-    <script src="js/analytics.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const listGrid = document.getElementById("toolkit-resources-injection-grid");
-            
-            membersData.forEach(member => {
-                const block = document.createElement("div");
-                block.style.background = "var(--bg-card)";
-                block.style.border = "1px solid #333";
-                block.style.padding = "15px";
-                block.style.borderRadius = "8px";
-                block.style.display = "flex";
-                block.style.flexDirection = "column";
-                block.style.gap = "10px";
-                
-                block.innerHTML = `
-                    <div>
-                        <span style="font-size:0.75rem; color:var(--primary-gold); font-weight:bold; text-transform:uppercase;">${member.category}</span>
-                        <h4 style="margin:2px 0; color:#fff; font-size:1.1rem; font-family:var(--font-secondary); text-transform:none; letter-spacing:0;">${member.resourceTitle}</h4>
-                        <p style="font-size:0.8rem; color:var(--text-muted);">Curated under operational authority metric criteria by expert: ${member.name}</p>
-                    </div>
-                    <a href="thank-you.html?action=download&id=${member.id}" class="btn btn-secondary" style="padding:8px 12px; font-size:0.85rem; width:max-content; margin-left:auto;">Download Resource</a>
-                `;
-                listGrid.appendChild(block);
-            });
-            logEvent("Toolkit Matrix Explored", "Global Toolkit Area");
-        });
-    </script>
-</body>
-</html>
+<body class="inner-page"><div class="ambient-grid" aria-hidden="true"></div>
+  <header class="site-header"><a class="brand" href="index.html"><span class="brand-bolt">⚡</span><span>Amit Ke <strong>Circuits</strong></span></a><a class="header-back" href="index.html">← Home</a></header>
+  <main><section class="page-hero section"><p class="section-kicker">7 Specialists / 7 Resources</p><h1>Business Growth<br><span>Toolkit</span></h1><p>Practical checklists and guides for the real business tensions in your network.</p><a class="button button-primary" href="#resources">Explore the toolkit ↓</a></section><section class="section" id="resources"><div class="resource-grid" id="resource-grid"></div></section><section class="final-cta section"><p class="section-kicker">Still unsure?</p><h2>Problem batao.<br><span>Circuit hum dhoondhenge.</span></h2><a class="button button-primary" href="index.html#journey">Start the journey</a></section></main>
+  <footer class="site-footer"><span>© <span id="year"></span> Amit Ke Circuits</span><a href="index.html">Back to home →</a></footer>
+</body></html>
