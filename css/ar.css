@@ -14,6 +14,7 @@
 .ar-secondary-link { margin-top: 1.4rem; color: var(--muted); font-size: .8rem; }
 .ar-secondary-link a { color: var(--gold); }
 .ar-status { margin-top: 1.2rem; font-size: .78rem; color: var(--muted); min-height: 1.2em; }
+.ar-action-row { justify-content: center; }
 
 /* ---------- Live AR stage ---------- */
 .ar-stage { position: fixed; inset: 0; background: var(--ink); z-index: 5; }
@@ -31,6 +32,10 @@
 /* Overlay shown when the Circuit AR Badge marker is detected */
 .ar-overlay { position: fixed; inset: 0; z-index: 25; display: flex; align-items: center; justify-content: center; padding: 2rem 1.4rem; opacity: 0; pointer-events: none; transition: opacity .35s ease; }
 .ar-overlay.is-visible { opacity: 1; pointer-events: auto; }
+.ar-preview-camera { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, rgba(245,189,50,.16), transparent 34%), linear-gradient(135deg, rgba(255,255,255,.07), rgba(8,9,7,.96)); overflow: hidden; }
+.ar-preview-camera::before { content: ""; position: absolute; inset: 12%; border: 1px dashed rgba(245,189,50,.45); border-radius: 50%; animation: rotate 24s linear infinite; }
+.ar-preview-badge { width: min(58vw, 340px); padding: 1rem; border: 2px solid var(--gold); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 0 70px rgba(245,189,50,.22); transform: perspective(800px) rotateX(60deg) rotateZ(-8deg); }
+.ar-preview-badge img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; }
 .ar-overlay-card { position: relative; max-width: 420px; width: 100%; text-align: center; background: rgba(8,9,7,.72); border: 1px solid var(--line); border-radius: 1.6rem; padding: 2.4rem 1.8rem 2rem; backdrop-filter: blur(6px); box-shadow: 0 0 80px rgba(245,189,50,.18); }
 
 .ar-glow-ring { width: 96px; height: 96px; margin: 0 auto 1.1rem; border-radius: 50%; border: 2px solid var(--gold); display: grid; place-items: center; font-size: 1.7rem; color: var(--gold); animation: ar-pulse 1.8s ease-in-out infinite, ar-rotate 7s linear infinite; box-shadow: 0 0 0 0 rgba(245,189,50,.35); }
@@ -63,3 +68,31 @@
 
 /* ---------- Fallback (reused original markup, shown on demand) ---------- */
 .ar-page .fallback-page { min-height: 100svh; }
+
+/* ---------- Printable AR marker handoff ---------- */
+.marker-page { background: #f7f3e8; color: #111; }
+.marker-page .ambient-grid { display: none; }
+.marker-sheet { min-height: 100svh; display: grid; place-items: center; padding: 2rem; }
+.marker-panel { width: min(100%, 760px); text-align: center; background: #fff; border: 1px solid #d7cfbd; border-radius: 8px; padding: 2rem; box-shadow: 0 24px 70px rgba(0,0,0,.12); }
+.marker-panel h1 { color: #111; font-size: clamp(2rem, 7vw, 4.5rem); }
+.marker-panel h1 span, .marker-panel .section-kicker { color: #9c7100; }
+.marker-note, .marker-footnote { color: #4a463c; max-width: 38rem; margin-inline: auto; }
+.hiro-marker { width: min(72vw, 360px); aspect-ratio: 1; margin: 2rem auto; background: #000; padding: 12%; display: grid; place-items: center; }
+.hiro-inner { position: relative; width: 100%; height: 100%; background: #fff; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-weight: 900; color: #000; }
+.hiro-inner::before { content: ""; position: absolute; left: 16%; top: 15%; width: 24%; height: 70%; background: #000; box-shadow: 44px 0 0 #000; }
+.hiro-inner::after { content: ""; position: absolute; left: 16%; top: 42%; width: 68%; height: 17%; background: #000; }
+.hiro-h, .hiro-i, .hiro-r, .hiro-o { position: absolute; line-height: 1; color: #000; }
+.hiro-h { left: 14%; top: 5%; font-size: 46px; }
+.hiro-i { right: 17%; top: 6%; font-size: 44px; }
+.hiro-r { left: 13%; bottom: 5%; font-size: 44px; }
+.hiro-o { right: 13%; bottom: 5%; font-size: 44px; }
+.marker-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem; margin: 1.4rem 0; }
+.marker-footnote code { color: #111; background: #efe8d6; padding: .1rem .3rem; border-radius: 4px; }
+
+@media print {
+  .marker-page { background: #fff; }
+  .marker-sheet { min-height: auto; padding: 0; }
+  .marker-panel { border: 0; box-shadow: none; padding: 0; }
+  .marker-actions, .marker-note, .marker-footnote { display: none; }
+  .hiro-marker { width: 95mm; margin-top: 16mm; }
+}
