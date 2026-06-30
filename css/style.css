@@ -163,12 +163,6 @@ h2 { font-size: clamp(2.6rem, 6vw, 5.8rem); margin-bottom: 2rem; }
 .toolkit-copy > p:not(.section-kicker) { max-width: 38rem; color: var(--muted); }
 .toolkit-visual { width: min(280px, 100%); aspect-ratio: 1; justify-self: center; display: grid; place-content: center; border: 1px solid var(--gold); border-radius: 50%; text-align: center; box-shadow: 0 0 80px rgba(245,189,50,.09), inset 0 0 60px rgba(245,189,50,.05); }
 .toolkit-visual span { font: 7rem/.8 var(--display); color: var(--gold); }.toolkit-visual small { margin-top: 1rem; text-transform: uppercase; letter-spacing: .2em; }
-.ar-teaser { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(220px, .55fr); align-items: center; gap: 2rem; }
-.ar-teaser-copy { max-width: 760px; }
-.ar-teaser-copy h2 { font-size: clamp(3.2rem, 7vw, 7rem); }
-.ar-badge-card { margin: 0; justify-self: center; width: min(100%, 300px); padding: 1rem; border: 2px solid var(--gold); border-radius: 1rem; background: linear-gradient(180deg, rgba(245,189,50,.16), rgba(255,255,255,.04)); box-shadow: 0 30px 80px rgba(0,0,0,.45), 0 0 45px rgba(245,189,50,.12); transform: rotate(1.2deg); }
-.ar-badge-card img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: .6rem; background: #fff; }
-.ar-badge-card figcaption { margin-top: .85rem; color: var(--muted); font-size: .78rem; text-align: center; text-transform: uppercase; letter-spacing: .14em; }
 .final-cta { text-align: center; padding-top: 10rem; padding-bottom: 10rem; }.final-cta > p:not(.section-kicker) { color: var(--muted); }.final-cta .hero-actions { justify-content: center; }
 .site-footer { max-width: var(--max); margin: auto; padding: 2rem; border-top: 1px solid rgba(255,255,255,.12); display: flex; justify-content: space-between; color: var(--muted); font-size: .85rem; }
 .sticky-bar { display: none; }
@@ -231,3 +225,10 @@ h2 { font-size: clamp(2.6rem, 6vw, 5.8rem); margin-bottom: 2rem; }
 
 :focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .motion-paused *, .motion-paused *::before, .motion-paused *::after { animation-play-state: paused !important; }
+
+
+.ar-home{ text-align:center; padding:120px 20px; border-top:1px solid rgba(255,255,255,.08);}
+.ar-home p{ max-width:650px; margin:auto; color:var(--muted);}
+.ar-home .button-row{ justify-content: center; margin-top:35px;}
+
+.thankyou-page{ display:grid;place-items:center;min-height:100vh;background:var(--ink);text-align:center;padding:40px; }
