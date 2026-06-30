@@ -31,13 +31,17 @@
             </div>
             <p class="section-kicker">Activate AR ⚡</p>
             <h1>Circuit AR<br><span>Badge Scanner</span></h1>
-            <p class="ar-copy">Point your camera at the Circuit AR Badge printed on the back of any Amit Ke Circuits coaster to bring it to life.</p>
+            <p class="ar-copy">Point your camera at the AR test marker to bring the Circuit reveal to life. The final printed Circuit AR Badge can replace this marker after target conversion.</p>
             <ol class="ar-steps">
             <li><span>1.</span> Tap "Activate Circuit AR" and allow camera access.</li>
-            <li><span>2.</span> Point your phone at the printed Circuit AR Badge, 20–40cm away.</li>
+            <li><span>2.</span> Open or print the test marker, then point your phone at it from 20-40cm away.</li>
             <li><span>3.</span> Watch the Amit Ke Circuits reveal appear on top of the badge.</li>
             </ol>
-            <button class="button button-primary pulse" type="button" id="ar-activate-btn">Activate Circuit AR ⚡</button>
+            <div class="button-row ar-action-row">
+                <button class="button button-primary pulse" type="button" id="ar-activate-btn">Activate Circuit AR ⚡</button>
+                <a class="button button-ghost" href="ar-marker.html" target="_blank" rel="noopener" data-track="ar_marker_opened">Open Test Marker</a>
+                <button class="button button-ghost" type="button" id="ar-preview-btn">Preview AR Reveal</button>
+            </div>
             <p class="ar-status" id="ar-status" aria-live="polite"></p>
             <p class="ar-secondary-link">No printed badge handy? <a href="index.html#journey" data-track="ar_skip_to_microsite">Open the microsite instead →</a></p>
         </section>
