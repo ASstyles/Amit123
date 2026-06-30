@@ -4,6 +4,8 @@
   // ---- Config ---------------------------------------------------------
   var AFRAME_SRC = "https://aframe.io/releases/1.4.2/aframe.min.js";
   var ARJS_SRC = "https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/aframe/build/aframe-ar.js";
+  var TRACKING_MODE = "arjs-hiro-test-marker";
+  var FINAL_TARGET_NOTE = "Final Circuit AR Badge tracking needs a generated .patt or .mind target.";
   var FALLBACK_TEXT = "Camera ya AR load nahi hua? Koi tension nahi. Amit Ke Circuits microsite yahin se open karo.";
   var MICROSITE_URL = "index.html#journey";
   var MEMBER_ICONS = [
@@ -25,6 +27,7 @@
     var stage = document.getElementById("ar-stage");
     var fallback = document.getElementById("ar-fallback");
     var activateBtn = document.getElementById("ar-activate-btn");
+    var previewBtn = document.getElementById("ar-preview-btn");
     var statusEl = document.getElementById("ar-status");
     var openMicrositeBtns = document.querySelectorAll("[data-ar-open-microsite]");
 
@@ -112,7 +115,7 @@
           '<a class="brand" href="index.html" aria-label="Amit Ke Circuits home"><span class="brand-bolt">⚡</span><span>Amit Ke <strong>Circuits</strong></span></a>' +
           '<button class="ar-exit" type="button" id="ar-exit-btn">Exit AR ✕</button>' +
         '</div>' +
-        '<div class="ar-hint" id="ar-hint">Point the camera at the printed Circuit AR Badge</div>' +
+        '<div class="ar-hint" id="ar-hint">Point the camera at the AR.js Hiro test marker</div>' +
         '<a-scene embedded vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true"' +
         ' arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; trackingMethod: best;">' +
           '<a-marker preset="hiro" id="circuit-ar-marker" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5"></a-marker>' +
@@ -133,20 +136,44 @@
       var marker = document.getElementById("circuit-ar-marker");
       var hint = document.getElementById("ar-hint");
       marker.addEventListener("markerFound", function () {
-        track("ar_marker_found", {});
+        track("ar_marker_found", { tracking_mode: TRACKING_MODE });
         overlay.classList.add("is-visible");
         if (hint) hint.classList.add("is-hidden");
       });
       marker.addEventListener("markerLost", function () {
-        track("ar_marker_lost", {});
+        track("ar_marker_lost", { tracking_mode: TRACKING_MODE });
         overlay.classList.remove("is-visible");
         if (hint) hint.classList.remove("is-hidden");
       });
     }
 
+    function mountPreviewScene() {
+      track("ar_preview_opened", {});
+      activateScreen.hidden = true;
+      stage.hidden = false;
+      stage.innerHTML =
+        '<div class="ar-hud-top">' +
+          '<a class="brand" href="index.html" aria-label="Amit Ke Circuits home"><span class="brand-bolt">⚡</span><span>Amit Ke <strong>Circuits</strong></span></a>' +
+          '<button class="ar-exit" type="button" id="ar-exit-btn">Exit Preview ✕</button>' +
+        '</div>' +
+        '<div class="ar-preview-camera" aria-hidden="true"><div class="ar-preview-badge"><img src="assets/images/circuit-ar-badge.png" alt=""></div></div>';
+
+      var overlay = buildOverlay();
+      stage.appendChild(overlay);
+      window.setTimeout(function () { overlay.classList.add("is-visible"); }, 350);
+
+      document.getElementById("ar-exit-btn").addEventListener("click", function () {
+        track("ar_preview_exit", {});
+        stage.hidden = true;
+        stage.innerHTML = "";
+        activateScreen.hidden = false;
+        setStatus("");
+      });
+    }
+
     function startAr() {
       setStatus("Camera load ho rahi hai…");
-      track("ar_activate_tap", {});
+      track("ar_activate_tap", { tracking_mode: TRACKING_MODE, final_target_note: FINAL_TARGET_NOTE });
 
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         showFallback("getUserMedia_unsupported");
@@ -176,5 +203,6 @@
     }
 
     activateBtn.addEventListener("click", startAr);
+    if (previewBtn) previewBtn.addEventListener("click", mountPreviewScene);
   });
 })();
